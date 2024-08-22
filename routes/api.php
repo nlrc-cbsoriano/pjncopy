@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/chatbot', [ChatbotController::class, 'sendMessage']);
 Route::post('/chatbot/upload', [ChatbotController::class, 'uploadFile']);
-Route::post('/chatbot/getresponse', [OpenAIController::class, 'getResponse']);
+// Route::post('/chatbot/getresponse', [OpenAIController::class, 'getResponse']);
