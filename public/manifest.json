@@ -1,14 +1,11 @@
 {
-  "resources/css/app.css": {
-    "file": "assets/app-l0sNRNKZ.js",
-    "name": "app",
-    "src": "resources/css/app.css",
-    "isEntry": true
-  },
   "resources/js/app.jsx": {
-    "file": "assets/app-YkTA28by.js",
-    "name": "app",
+    "file": "assets/main-CU_zZRcE.js",
+    "name": "main",
     "src": "resources/js/app.jsx",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/main-BdfAxLe_.css"
+    ]
   }
 }
