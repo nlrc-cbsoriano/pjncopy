@@ -48,3 +48,5 @@ class ChatbotController extends Controller
         return response()->json(['text' => 'No file uploaded'], 400);
     }
 }
+
+
