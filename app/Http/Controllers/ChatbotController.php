@@ -9,20 +9,21 @@ class ChatbotController extends Controller
 {
     public function sendMessage(Request $request)
     {
-        $message = $request->input('message');
+        $message = $request->input('message', '');
 
-        // $endpoint = env('AZURE_OPENAI_ENDPOINT');
-        // $deploymentName = 'pjnchatbot_deployment'; // Use the name you set in the deployment
-        // $apiVersion = '0613'; // Ensure this is the correct version
-        // $url = "{$endpoint}/openai/deployments/{$deploymentName}/completions?api-version={$apiVersion}";
-
-        // Call Azure OpenAI API
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . env('AZURE_OPENAI_API_KEY'),
             'Content-Type' => 'application/json',
         ])->post(env('AZURE_OPENAI_ENDPOINT') . '/openai/deployments/' . env('AZURE_OPENAI_DEPLOYMENT_NAME') . '/completions', [
+            'api-version' => env('AZURE_OPENAI_API_VERSION'),
             'prompt' => $message,
-            'max_tokens' => 100,
+            'temperature' => 0,
+            'max_tokens' => 60,
+            'top_p' => 1,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+            'best_of' => 1,
+            'stop' => null,
         ]);
 
         // Log and inspect the response for debugging
@@ -34,33 +35,16 @@ class ChatbotController extends Controller
         return response()->json(['text' => $reply]);
     }
 
-    public function getResponse(Request $request)
+    public function uploadFile(Request $request)
     {
-        $endpoint = env('AZURE_OPENAI_ENDPOINT');
-        $apiVersion = "2024-05-01-preview";
-        $deploymentName = env('AZURE_OPENAI_DEPLOYMENT_NAME');
-        $apiKey = env('AZURE_OPENAI_API_KEY');
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            // Process the file as needed, e.g., store it, analyze it, etc.
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $apiKey,
-            'Content-Type' => 'application/json',
-        ])->post("{$endpoint}/openai/deployments/{$deploymentName}/chat/completions?api-version={$apiVersion}", [
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => $request->input('message'),
-                ]
-            ],
-            'max_tokens' => 800,
-            'temperature' => 0.7,
-            'top_p' => 0.95,
-            'frequency_penalty' => 0,
-            'presence_penalty' => 0,
-            'stop' => null,
-            'stream' => false,
-        ]);
+            // For the sake of example, let's assume you just want to respond with a success message
+            return response()->json(['text' => 'File uploaded successfully: ' . $file->getClientOriginalName()]);
+        }
 
-        return response()->json($response->json());
+        return response()->json(['text' => 'No file uploaded'], 400);
     }
-
 }
