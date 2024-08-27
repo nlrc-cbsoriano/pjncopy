@@ -63,4 +63,4 @@ jobs:
           app-name: 'sampol'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C0D426795DA94084BC14E0DE3F0EF203 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9D82C1A7968C42CCA322D5DD2834BC3F }}
