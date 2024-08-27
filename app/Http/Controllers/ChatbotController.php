@@ -9,7 +9,7 @@ class ChatbotController extends Controller
 {
     public function sendMessage(Request $request)
     {
-        $message = $request->input('message', '');
+        $message = $request->input('message');
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . env('AZURE_OPENAI_API_KEY'),
