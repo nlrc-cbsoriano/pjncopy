@@ -11,7 +11,7 @@ export default defineConfig({
         }),
     ],
     build: {
-        outDir: 'public', // Ensure that build files are output to the public directory
+        outDir: 'public/build', // Ensure that build files are output to the public directory
         rollupOptions: {
             input: {
                 main: 'resources/js/app.jsx',
